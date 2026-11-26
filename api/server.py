@@ -1,4 +1,4 @@
-"""inemaVOX API - FastAPI server com WebSocket para progresso em tempo real."""
+"""ARCKHÉVOX API - FastAPI server com WebSocket para progresso em tempo real."""
 
 import json
 import os
@@ -34,9 +34,9 @@ async def lifespan(app: FastAPI):
 APP_VERSION = "1.15.4"
 
 app = FastAPI(
-    title="inemaVOX API",
+    title="ARCKHÉVOX API",
     version=APP_VERSION,
-    description="inemaVOX - Suite de voz com IA local: dublagem, transcricao, corte e download de videos",
+    description="ARCKHÉVOX - Suite de voz com IA local: dublagem, transcricao, corte e download de videos",
     lifespan=lifespan,
 )
 
@@ -445,7 +445,7 @@ async def audio_download(body: dict):
 
     if not dest.exists() or dest.stat().st_size < 1000:
         try:
-            req = urllib.request.Request(preview_url, headers={"User-Agent": "inemaVOX/1.0"})
+            req = urllib.request.Request(preview_url, headers={"User-Agent": "ARCKHÉVOX/1.0"})
             with urllib.request.urlopen(req, timeout=60) as resp:
                 with open(dest, "wb") as f:
                     while True:

@@ -1,4 +1,4 @@
-# inemaVOX - Clonar Voz
+# ARCKHÉVOX - Clonar Voz
 
 Clona uma voz de referencia e sintetiza texto com ela. Dois pipelines disponiveis: **MTL** (Chatterbox completo) e **VC Pipeline** (Edge TTS → conversao de voz com S3Gen).
 

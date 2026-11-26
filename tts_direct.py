@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-tts_direct.py — inemaVOX: Gera audio a partir de texto.
+tts_direct.py — ARCKHÉVOX: Gera audio a partir de texto.
 
 Uso:
     python tts_direct.py --text "Ola mundo" --lang pt --engine edge --outdir /path/out
@@ -291,7 +291,7 @@ def main():
     (outdir.parent / "dub_work").mkdir(exist_ok=True)
 
     print(f"\n{'='*50}", flush=True)
-    print(f"  inemaVOX - Gerando Audio", flush=True)
+    print(f"  ARCKHÉVOX - Gerando Audio", flush=True)
     print(f"  Engine : {args.engine}", flush=True)
     print(f"  Idioma : {args.lang}", flush=True)
     print(f"  Texto  : {args.text[:80]}{'...' if len(args.text) > 80 else ''}", flush=True)

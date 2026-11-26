@@ -1,4 +1,4 @@
-# inemaVOX - Changelog
+# ARCKHÉVOX - Changelog
 
 ---
 
@@ -150,7 +150,7 @@ Série de patches de compatibilidade para fazer pyannote funcionar com o ecossis
 
 ## v1.0.0 (rebrand)
 
-- Rebrand de "Dublar Pro" para **inemaVOX**
+- Rebrand de "Dublar Pro" para **ARCKHÉVOX**
 - Suite completa: Dublagem, Transcricao, Corte, Download, TTS, Clone de Voz
 - Interface web moderna em Next.js com Tailwind CSS
 - API FastAPI com sistema de jobs e filas

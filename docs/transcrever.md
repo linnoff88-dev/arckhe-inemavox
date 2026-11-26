@@ -1,4 +1,4 @@
-# inemaVOX - Transcrever Video
+# ARCKHÉVOX - Transcrever Video
 
 Gera legendas e transcricoes a partir de qualquer video ou audio usando modelos de reconhecimento de fala (ASR) com GPU. Suporta dezenas de idiomas e exporta nos formatos SRT, TXT e JSON.
 

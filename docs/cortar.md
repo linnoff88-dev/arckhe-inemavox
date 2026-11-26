@@ -1,4 +1,4 @@
-# inemaVOX - Cortar Video
+# ARCKHÉVOX - Cortar Video
 
 Extrai clips de um video por timestamps manuais ou deixa a IA identificar automaticamente os melhores momentos. Suporta dois modos de analise por IA: **Viral** (momentos mais envolventes) e **Por Assunto** (segmentacao por topico).
 

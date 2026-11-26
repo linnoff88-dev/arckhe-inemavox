@@ -1,4 +1,4 @@
-# inemaVOX - Gerar Audio (TTS)
+# ARCKHÉVOX - Gerar Audio (TTS)
 
 Sintetiza fala a partir de texto usando motores de TTS locais ou online. Suporta Edge TTS (Microsoft), Chatterbox (GPU local) e outros.
 

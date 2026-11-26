@@ -1,6 +1,6 @@
 # TODO — Camada de pronúncia (léxico) + revisêo de acentuaçêo no TTS
 
-> Status: **a implementar.** Documentado a partir do uso no projeto `inemaref` (skills de
+> Status: **a implementar.** Documentado a partir do uso no projeto `ARCKHÉref` (skills de
 > motion comic / vídeo narrado), 2026-06-10. Implementar quando for mexer nisto.
 
 ## Problema
@@ -13,9 +13,9 @@ A narraçêo em **português** sai errada em dois casos:
 2. **Termos em inglês** — nomes/palavras em inglês numa narraçêo PT ("Maslow", "software",
    "design", "design thinking") sêo lidos com a fonética portuguesa e soam errados.
 
-## Por que resolver AQUI (no inemavox)
+## Por que resolver AQUI (no ARCKHÉvox)
 
-O **inemavox é o ponto único** por onde **todos os projetos** de voz passam (inemaref,
+O **ARCKHÉvox é o ponto único** por onde **todos os projetos** de voz passam (ARCKHÉref,
 videoprodutor, cursos, bots, etc. chamam o endpoint `/tts` / `/tts/vc`). Resolver no daemon = **um
 lugar só**; todos os projetos passam a pronunciar certo **de graça**, sem mudar cada skill cliente.
 A alternativa (uma lib/`tts.py` em cada projeto) recai no problema de manter N cópias.
@@ -67,4 +67,4 @@ Uma **camada de pré-processamento do texto**, aplicada **no servidor antes de s
 - Texto com termo do léxico → sai com a pronúncia regravada.
 - Texto PT sem acento → (modo aviso) loga as suspeitas; (modo auto) corrige só os inequívocos.
 - `pronuncias.json` editável sem redeploy (hot-reload) e versionado no repo.
-- Projetos clientes (ex.: inemaref) **nêo precisam mudar nada** — ganham a correçêo de graça.
+- Projetos clientes (ex.: ARCKHÉref) **nêo precisam mudar nada** — ganham a correçêo de graça.

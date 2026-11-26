@@ -1,4 +1,4 @@
-# inemaVOX - Dublar Video
+# ARCKHÉVOX - Dublar Video
 
 Traduz e dubla automaticamente qualquer video usando IA local. O pipeline cobre desde o download do video ate a mixagem final com audio dublado sincronizado.
 
@@ -75,7 +75,7 @@ A diarizacao usa o modelo `pyannote/speaker-diarization-3.1` do HuggingFace, que
 
 3. Gere um token de acesso:
    - Acesse `https://huggingface.co/settings/tokens`
-   - Clique em **New token** → tipo **Read** → nome livre (ex: `inemavox`)
+   - Clique em **New token** → tipo **Read** → nome livre (ex: `ARCKHÉvox`)
    - Copie o token (`hf_...`)
 
 4. Configure no projeto:

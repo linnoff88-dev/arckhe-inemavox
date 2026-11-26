@@ -1,16 +1,16 @@
-# inemaVOX
+# ARCKHÉVOX
 
 <p align="center">
-  <img src="docs/inemavox.jpg" alt="inemaVOX - Suite de Voz com IA" width="800"/>
+  <img src="docs/ARCKHÉvox.jpg" alt="ARCKHÉVOX - Suite de Voz com IA" width="800"/>
 </p>
 
 Suite de voz com IA local. Dubla, transcreve, corta e baixa videos com modelos rodando direto na GPU â€” sem custo de API, sem nuvem. Interface web com monitor em tempo real.
 
 **Versao atual: 1.9.3**
 
-> **Esta e a versao GPU-first do inemaVOX.** Requer GPU com pelo menos ~8 GB de VRAM
+> **Esta e a versao GPU-first do ARCKHÉVOX.** Requer GPU com pelo menos ~8 GB de VRAM
 > para rodar Chatterbox TTS/VC e Whisper local. Se voce precisa rodar em maquina
-> **sem GPU** (VPS, laptop antigo, servidor cloud basico), use o **inemaVOX 2** â€”
+> **sem GPU** (VPS, laptop antigo, servidor cloud basico), use o **ARCKHÉVOX 2** â€”
 > mesmo produto, mas tudo via API cloud (Groq, OpenAI) ou processamento em CPU.
 
 ---
@@ -62,7 +62,7 @@ Suite de voz com IA local. Dubla, transcreve, corta e baixa videos com modelos r
 
 ### Como o projeto roda
 
-O inemavox roda **diretamente no host** (sem Docker para API e frontend). O Ollama e unico componente em Docker:
+O ARCKHÉvox roda **diretamente no host** (sem Docker para API e frontend). O Ollama e unico componente em Docker:
 
 | Componente | Modo | Porta |
 |---|---|---|
@@ -346,7 +346,7 @@ jobs/
 ## Estrutura do Projeto
 
 ```
-inemavox/
+ARCKHÉvox/
 â”œâ”€â”€ dublar_pro_v5.py          # Pipeline de dublagem (10 etapas)
 â”œâ”€â”€ transcrever_v1.py         # Pipeline de transcricao (4 etapas)
 â”œâ”€â”€ clipar_v1.py              # Pipeline de corte de clips
@@ -435,7 +435,7 @@ inemavox/
 | Variavel | Padrao | Descricao |
 |----------|--------|-----------|
 | `JOBS_DIR` | `jobs/` | Diretorio para armazenar os jobs |
-| `DOCKER_GPU_IMAGE` | `inemavox:gpu` | Imagem Docker com GPU |
+| `DOCKER_GPU_IMAGE` | `ARCKHÉvox:gpu` | Imagem Docker com GPU |
 | `OLLAMA_HOST` | `http://localhost:11434` | URL do servidor Ollama |
 | `NEXT_PUBLIC_API_URL` | `""` (relativo) | URL do backend para o frontend |
 
@@ -448,7 +448,7 @@ docker run \
   --ulimit memlock=-1 \
   --ulimit stack=67108864 \
   --network host \
-  inemavox:gpu
+  ARCKHÉvox:gpu
 ```
 
 ---

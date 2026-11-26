@@ -1,5 +1,5 @@
 #!/bin/bash
-# inemaVOX - Start all services
+# ARCKHÉVOX - Start all services
 # Usage: ./start.sh [--docker]
 
 set -e
@@ -13,9 +13,9 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
-log() { echo -e "${GREEN}[INEMAVOX]${NC} $1"; }
-warn() { echo -e "${YELLOW}[INEMAVOX]${NC} $1"; }
-err() { echo -e "${RED}[INEMAVOX]${NC} $1"; }
+log() { echo -e "${GREEN}[ARCKHÉVOX]${NC} $1"; }
+warn() { echo -e "${YELLOW}[ARCKHÉVOX]${NC} $1"; }
+err() { echo -e "${RED}[ARCKHÉVOX]${NC} $1"; }
 
 # Carregar variaveis de ambiente do .env se existir
 if [ -f "$DIR/.env" ]; then
@@ -56,7 +56,7 @@ fi
 
 # ---------- Local mode ----------
 log "========================================="
-log "  inemaVOX - Iniciando servicos locais"
+log "  ARCKHÉVOX - Iniciando servicos locais"
 log "========================================="
 echo ""
 
@@ -108,11 +108,11 @@ else
 fi
 
 # 6.1 Verificar Docker GPU image
-if docker image inspect inemavox:gpu &>/dev/null 2>&1; then
-    log "Docker GPU: ${GREEN}inemavox:gpu disponivel${NC} (pipeline rodara com GPU via Docker)"
+if docker image inspect ARCKHÉvox:gpu &>/dev/null 2>&1; then
+    log "Docker GPU: ${GREEN}ARCKHÉvox:gpu disponivel${NC} (pipeline rodara com GPU via Docker)"
 else
-    warn "Docker GPU: imagem inemavox:gpu nao encontrada (pipeline rodara em CPU)"
-    warn "  Para habilitar GPU: docker build -t inemavox:gpu ."
+    warn "Docker GPU: imagem ARCKHÉvox:gpu nao encontrada (pipeline rodara em CPU)"
+    warn "  Para habilitar GPU: docker build -t ARCKHÉvox:gpu ."
 fi
 
 echo ""
@@ -173,7 +173,7 @@ done
 IP=$(hostname -I | awk '{print $1}')
 echo ""
 log "========================================="
-log "  inemaVOX - Tudo no ar!"
+log "  ARCKHÉVOX - Tudo no ar!"
 log "========================================="
 echo ""
 log "  Dashboard:     http://$IP:3010"
