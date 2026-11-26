@@ -36,7 +36,7 @@ const QUALITY_META: Record<QualityLevel, { color: string; bar: string; icon: str
 };
 
 async function analyzeRef(file: File): Promise<RefAnalysis> {
-  // Medir duração via HTMLAudioElement
+  // Medir duraçêo via HTMLAudioElement
   const duration = await new Promise<number>((resolve) => {
     const url = URL.createObjectURL(file);
     const audio = new Audio();
@@ -53,10 +53,10 @@ async function analyzeRef(file: File): Promise<RefAnalysis> {
   let level: QualityLevel;
 
   if (duration < 0) {
-    // Não conseguiu ler — formato pode ser problemático mas deixar tentar
+    // Nêo conseguiu ler — formato pode ser problemático mas deixar tentar
     level = "fraca";
     score = 30;
-    hints.push("Não foi possível medir a duração — o modelo vai tentar assim mesmo.");
+    hints.push("Nêo foi possível medir a duraçêo — o modelo vai tentar assim mesmo.");
   } else if (duration < 3) {
     level = "insuficiente";
     score = 10;
@@ -65,17 +65,17 @@ async function analyzeRef(file: File): Promise<RefAnalysis> {
   } else if (duration < 8) {
     level = "fraca";
     score = 40;
-    hints.push(`Duração marginal (${duration.toFixed(1)}s). Ideal: acima de 10s.`);
+    hints.push(`Duraçêo marginal (${duration.toFixed(1)}s). Ideal: acima de 10s.`);
     hints.push("O clone pode capturar a voz, mas com menos naturalidade.");
   } else if (duration < 30) {
     level = "boa";
     score = 75;
-    hints.push(`Duração boa (${duration.toFixed(1)}s).`);
+    hints.push(`Duraçêo boa (${duration.toFixed(1)}s).`);
     if (duration < 15) hints.push("Para ainda mais fidelidade, use 15-30s de referência.");
   } else {
     level = "excelente";
     score = 95;
-    hints.push(`Duração excelente (${duration.toFixed(1)}s).`);
+    hints.push(`Duraçêo excelente (${duration.toFixed(1)}s).`);
   }
 
   // Penalizar bitrate muito baixo (possível áudio comprimido demais)
@@ -91,7 +91,7 @@ async function analyzeRef(file: File): Promise<RefAnalysis> {
     hints.push("Formato WAV — qualidade máxima para o modelo.");
   }
 
-  // Aviso se duração muito longa (> 60s desnecessário)
+  // Aviso se duraçêo muito longa (> 60s desnecessário)
   if (duration > 60) {
     hints.push("Áudio longo: o modelo usa só os primeiros ~30s de referência.");
   }
@@ -362,7 +362,7 @@ export default function VoiceClonePage() {
               }`}
             >
               <div className="text-sm font-semibold text-white mb-1">VC Pipeline ✨</div>
-              <div className="text-xs text-gray-500">Edge TTS → conversão de timbre. Maior fidelidade de voz.</div>
+              <div className="text-xs text-gray-500">Edge TTS → conversêo de timbre. Maior fidelidade de voz.</div>
             </button>
           </div>
           {vcMode === "vc" && (
@@ -508,7 +508,7 @@ export default function VoiceClonePage() {
         </div>
       )}
 
-      {/* Erro com botão de repetir */}
+      {/* Erro com botêo de repetir */}
       {status === "error" && refFile && (
         <div className="mt-4 flex justify-center">
           <button

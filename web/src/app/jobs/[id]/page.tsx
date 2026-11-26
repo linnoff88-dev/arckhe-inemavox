@@ -210,7 +210,7 @@ export default function JobDetail() {
   };
 
   const handleDelete = async () => {
-    if (!confirm(`Excluir job ${jobId} e todos os arquivos? Esta ação não pode ser desfeita.`)) return;
+    if (!confirm(`Excluir job ${jobId} e todos os arquivos? Esta açêo nêo pode ser desfeita.`)) return;
     setDeleting(true);
     try {
       await deleteJob(jobId);
@@ -270,7 +270,7 @@ export default function JobDetail() {
     failed: { color: "text-red-400", label: "Falhou" },
     queued: { color: "text-yellow-400", label: "Na fila" },
     cancelled: { color: "text-gray-400", label: "Cancelado" },
-    waiting_approval: { color: "text-purple-400", label: "Aguardando aprovação" },
+    waiting_approval: { color: "text-purple-400", label: "Aguardando aprovaçêo" },
   };
   const sl = statusLabels[status] || { color: "text-gray-400", label: status };
 
@@ -428,7 +428,7 @@ export default function JobDetail() {
               const isDone = stage.status === "done";
               const isRunning = stage.status === "running";
               const isPending = stage.status === "pending";
-              // waiting_approval: pipeline pausou intencionalmente, próxima etapa não rodou
+              // waiting_approval: pipeline pausou intencionalmente, próxima etapa nêo rodou
               const isPaused = isRunning && status === "waiting_approval";
               // Stage was running when job stopped unexpectedly — mark as interrupted
               const isInterrupted = isRunning && !isActive && !isPaused;
@@ -523,7 +523,7 @@ export default function JobDetail() {
         </section>
       )}
 
-      {/* Aprovação de análise */}
+      {/* Aprovaçêo de análise */}
       {isWaitingApproval && <ApprovalSection job={job} jobId={String(params.id)} onApproved={() => router.refresh()} />}
 
       {/* Results - Dubbing */}
@@ -900,7 +900,7 @@ export default function JobDetail() {
   );
 }
 
-// ─── Componente de Aprovação de Análise ──────────────────────────────────────
+// ─── Componente de Aprovaçêo de Análise ──────────────────────────────────────
 
 type AnalysisData = {
   cps_original: number;
@@ -938,7 +938,7 @@ function ApprovalSection({ job, jobId, onApproved }: { job: JobData | null; jobI
     if (translationEngine === "ollama") {
       getOllamaModels().then(data => {
         setOllamaModels(data || []);
-        // só preenche se ainda não tem valor (recomendado ou digitado)
+        // só preenche se ainda nêo tem valor (recomendado ou digitado)
         if (!ollamaModel && data?.length > 0) setOllamaModel(data[0].id);
       }).catch(() => {});
     }
@@ -979,9 +979,9 @@ function ApprovalSection({ job, jobId, onApproved }: { job: JobData | null; jobI
       {/* Métricas */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
         {[
-          { label: "Duração", value: fmtMin(analysis.total_duration) },
+          { label: "Duraçêo", value: fmtMin(analysis.total_duration) },
           { label: "CPS original", value: fmt(analysis.cps_original) },
-          { label: "Expansão tradução", value: `${fmt((analysis.translation_expansion - 1) * 100, 0)}%` },
+          { label: "Expansêo traduçêo", value: `${fmt((analysis.translation_expansion - 1) * 100, 0)}%` },
           { label: "Segmentos", value: String(analysis.segment_count) },
         ].map(({ label, value }) => (
           <div key={label} className="bg-gray-800/60 rounded-lg p-3 text-center">
@@ -998,10 +998,10 @@ function ApprovalSection({ job, jobId, onApproved }: { job: JobData | null; jobI
         </div>
       )}
 
-      {/* Transcrição */}
+      {/* Transcriçêo */}
       {analysis.transcription_sample && (
         <details className="mb-5">
-          <summary className="text-sm text-gray-400 cursor-pointer hover:text-gray-200">Amostra da transcrição</summary>
+          <summary className="text-sm text-gray-400 cursor-pointer hover:text-gray-200">Amostra da transcriçêo</summary>
           <p className="mt-2 text-sm text-gray-300 italic">{analysis.transcription_sample}</p>
         </details>
       )}
@@ -1018,7 +1018,7 @@ function ApprovalSection({ job, jobId, onApproved }: { job: JobData | null; jobI
           </select>
         </div>
         <div>
-          <label className="block text-sm text-gray-400 mb-1">Sincronização</label>
+          <label className="block text-sm text-gray-400 mb-1">Sincronizaçêo</label>
           <select value={syncMode} onChange={e => setSyncMode(e.target.value)}
             className="w-full bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white">
             {["smart","fit","extend","pad","none"].map(s => (
@@ -1028,7 +1028,7 @@ function ApprovalSection({ job, jobId, onApproved }: { job: JobData | null; jobI
         </div>
         <div>
           <label className="block text-sm text-gray-400 mb-1">
-            Compressão máx: <span className="text-white font-medium">{fmt((maxstretch - 1) * 100, 0)}%</span>
+            Compressêo máx: <span className="text-white font-medium">{fmt((maxstretch - 1) * 100, 0)}%</span>
           </label>
           <input type="range" min={1.0} max={2.0} step={0.05} value={maxstretch}
             onChange={e => setMaxstretch(Number(e.target.value))}
@@ -1047,14 +1047,14 @@ function ApprovalSection({ job, jobId, onApproved }: { job: JobData | null; jobI
           </select>
         </div>
         <div>
-          <label className="block text-sm text-gray-400 mb-1">Transcrição (ASR)</label>
+          <label className="block text-sm text-gray-400 mb-1">Transcriçêo (ASR)</label>
           <select value={asrEngine} onChange={e => setAsrEngine(e.target.value)}
             className="w-full bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white">
             {["parakeet","whisper","whisper_gpu"].map(a => <option key={a} value={a}>{a}</option>)}
           </select>
         </div>
         <div>
-          <label className="block text-sm text-gray-400 mb-1">Tradução</label>
+          <label className="block text-sm text-gray-400 mb-1">Traduçêo</label>
           <select value={translationEngine} onChange={e => setTranslationEngine(e.target.value)}
             className="w-full bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white">
             {["m2m100","ollama"].map(t => <option key={t} value={t}>{t}</option>)}

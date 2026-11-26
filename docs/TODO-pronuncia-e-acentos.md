@@ -1,17 +1,17 @@
-# TODO — Camada de pronúncia (léxico) + revisão de acentuação no TTS
+# TODO — Camada de pronúncia (léxico) + revisêo de acentuaçêo no TTS
 
 > Status: **a implementar.** Documentado a partir do uso no projeto `inemaref` (skills de
 > motion comic / vídeo narrado), 2026-06-10. Implementar quando for mexer nisto.
 
 ## Problema
 
-A narração em **português** sai errada em dois casos:
+A narraçêo em **português** sai errada em dois casos:
 
-1. **Acentuação ausente** — texto sem acento ("piramide", "voce", "historia") faz o TTS
+1. **Acentuaçêo ausente** — texto sem acento ("piramide", "voce", "historia") faz o TTS
    pronunciar errado (sílaba tônica/vogal trocada). Hoje quem chama o `/tts` precisa lembrar de
    acentuar — e quando esquece, a fala sai torta, sem nenhum aviso.
-2. **Termos em inglês** — nomes/palavras em inglês numa narração PT ("Maslow", "software",
-   "design", "design thinking") são lidos com a fonética portuguesa e soam errados.
+2. **Termos em inglês** — nomes/palavras em inglês numa narraçêo PT ("Maslow", "software",
+   "design", "design thinking") sêo lidos com a fonética portuguesa e soam errados.
 
 ## Por que resolver AQUI (no inemavox)
 
@@ -38,18 +38,18 @@ Uma **camada de pré-processamento do texto**, aplicada **no servidor antes de s
 }
 ```
 
-- Substituição por **limite de palavra** (regex `\b`), **case-insensitive**, preservando
-  pontuação. Aplicar antes da síntese.
+- Substituiçêo por **limite de palavra** (regex `\b`), **case-insensitive**, preservando
+  pontuaçêo. Aplicar antes da síntese.
 - Carregar o JSON na subida do worker (ou hot-reload). Editar o arquivo = ajustar a pronúncia de
   todos os projetos.
 - Opcional: por idioma (`pronuncias.pt.json`) e/ou um campo no request para desativar
   (`aplicar_lexico: false`).
 
-### 2. Revisão de acentuação (opcional, mais conservador)
+### 2. Revisêo de acentuaçêo (opcional, mais conservador)
 
 - Checar o texto PT com **hunspell `pt_BR`** (ou `pyspellchecker` lang=`pt`) antes de sintetizar.
 - Modo **aviso** (default seguro): retornar/loggar as palavras suspeitas de estarem sem acento
-  (não corrige sozinho — corrigir acento automático é arriscado).
+  (nêo corrige sozinho — corrigir acento automático é arriscado).
 - Modo **auto** (opt-in via flag no request): substituir só quando houver **uma** forma acentuada
   inequívoca no dicionário (ex.: "voce"→"você", "historia"→"história"); pular ambíguos
   ("e"/"é", "esta"/"está", "secretaria"/"secretária").
@@ -67,4 +67,4 @@ Uma **camada de pré-processamento do texto**, aplicada **no servidor antes de s
 - Texto com termo do léxico → sai com a pronúncia regravada.
 - Texto PT sem acento → (modo aviso) loga as suspeitas; (modo auto) corrige só os inequívocos.
 - `pronuncias.json` editável sem redeploy (hot-reload) e versionado no repo.
-- Projetos clientes (ex.: inemaref) **não precisam mudar nada** — ganham a correção de graça.
+- Projetos clientes (ex.: inemaref) **nêo precisam mudar nada** — ganham a correçêo de graça.

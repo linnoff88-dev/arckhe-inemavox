@@ -22,7 +22,7 @@ import soundfile as sf
 
 
 def get_device() -> str:
-    """Detecta device com verificação de VRAM disponível.
+    """Detecta device com verificaçêo de VRAM disponível.
     S3Gen (VC) usa ~1.5GB VRAM. Threshold conservador de 1.5GB.
     """
     if not torch.cuda.is_available():
@@ -54,9 +54,9 @@ def main():
     out_path = Path(args.output)
 
     if not source_path.exists():
-        raise FileNotFoundError(f"Áudio fonte não encontrado: {source_path}")
+        raise FileNotFoundError(f"Áudio fonte nêo encontrado: {source_path}")
     if not ref_path.exists():
-        raise FileNotFoundError(f"Referência não encontrada: {ref_path}")
+        raise FileNotFoundError(f"Referência nêo encontrada: {ref_path}")
 
     device = get_device()
     print(f"[vc_worker] device={device}", flush=True)
@@ -85,7 +85,7 @@ def main():
         target_voice_path=str(ref_path),
     )
     elapsed = time.time() - t1
-    print(f"[vc_worker] conversão VC concluida em {elapsed:.1f}s", flush=True)
+    print(f"[vc_worker] conversêo VC concluida em {elapsed:.1f}s", flush=True)
 
     audio_np = wav.squeeze().cpu().numpy()
     sf.write(str(out_path), audio_np, model.sr)

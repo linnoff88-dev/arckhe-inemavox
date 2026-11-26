@@ -728,7 +728,7 @@ class JobManager:
                     if job_type == "dubbing":
                         record_job_complete(job.config, job.stage_times, job.duration, job.device)
                 elif exit_code == 2:
-                    # Modo análise: pipeline pausou após etapa 4, aguarda aprovação
+                    # Modo análise: pipeline pausou após etapa 4, aguarda aprovaçêo
                     job.status = "waiting_approval"
                     analysis_path = job.workdir / "dub_work" / "analysis.json"
                     if analysis_path.exists():
@@ -1139,7 +1139,7 @@ class JobManager:
         if config.get("content_type") == "curso" or config.get("summary"):
             cmd.append("--summary")
         # Análise: roda etapas 1-4 e calcula params recomendados.
-        # Por padrão aplica os params e segue direto; com review=True, pausa para aprovação.
+        # Por padrêo aplica os params e segue direto; com review=True, pausa para aprovaçêo.
         if config.get("content_type") == "analise":
             cmd.append("--analyze")
             if config.get("review"):
@@ -1217,7 +1217,7 @@ class JobManager:
         if config.get("content_type") == "curso" or config.get("summary"):
             cmd.append("--summary")
         # Análise: roda etapas 1-4 e calcula params recomendados.
-        # Por padrão aplica os params e segue direto; com review=True, pausa para aprovação.
+        # Por padrêo aplica os params e segue direto; com review=True, pausa para aprovaçêo.
         if config.get("content_type") == "analise":
             cmd.append("--analyze")
             if config.get("review"):
@@ -1232,9 +1232,9 @@ class JobManager:
         """Retoma job pausado em waiting_approval com parâmetros aprovados."""
         job = self.jobs.get(job_id)
         if not job:
-            raise ValueError(f"Job {job_id} não encontrado")
+            raise ValueError(f"Job {job_id} nêo encontrado")
         if job.status != "waiting_approval":
-            raise ValueError(f"Job {job_id} não está em waiting_approval (status: {job.status})")
+            raise ValueError(f"Job {job_id} nêo está em waiting_approval (status: {job.status})")
         job.config.update(approved_config)
         (job.workdir / "config.json").write_text(
             json.dumps(job.config, indent=2, ensure_ascii=False), encoding="utf-8"

@@ -596,7 +596,7 @@ def load_checkpoint(workdir):
 # FASE 3: DIARIZACAO (DETECTAR FALANTES)
 # ============================================================================
 
-# Python do ambiente NeMo/miniconda (usado como subprocess para diarização NeMo)
+# Python do ambiente NeMo/miniconda (usado como subprocess para diarizaçêo NeMo)
 _NEMO_PYTHON = os.environ.get(
     "NEMO_PYTHON",
     "/home/nmaldaner/miniconda3/bin/python3"
@@ -604,7 +604,7 @@ _NEMO_PYTHON = os.environ.get(
 
 
 def _liberar_memoria():
-    """Força liberação agressiva de RAM: Python GC + glibc malloc_trim + sleep.
+    """Força liberaçêo agressiva de RAM: Python GC + glibc malloc_trim + sleep.
 
     Usado antes de carregar modelos pesados (pyannote, NeMo) para garantir que
     modelos anteriores (CTranslate2, etc.) realmente devolvam páginas ao SO.
@@ -627,7 +627,7 @@ def _liberar_memoria():
 
 
 def diarize_audio_nemo(wav_path, workdir, num_speakers=None):
-    """Diarização usando NeMo nativo (titanet_large + vad_multilingual_marblenet).
+    """Diarizaçêo usando NeMo nativo (titanet_large + vad_multilingual_marblenet).
 
     Executa um subprocess usando o Python do ambiente NeMo (miniconda3).
     Vantagens sobre pyannote: GPU nativa NVIDIA, sem dependências de torchaudio, sem gated models HF.
@@ -787,7 +787,7 @@ except Exception as e:
 
     result_path = nemo_outdir / "diar_result.json"
 
-    print("[INFO] Diarização NeMo: iniciando subprocess...")
+    print("[INFO] Diarizaçêo NeMo: iniciando subprocess...")
     try:
         proc = subprocess.run(
             [_NEMO_PYTHON, "-c", script],
@@ -798,25 +798,25 @@ except Exception as e:
             print(f"[ERRO] Subprocess NeMo falhou (exit {proc.returncode})")
             return None
     except subprocess.TimeoutExpired:
-        print("[ERRO] Diarização NeMo timeout (>10min)")
+        print("[ERRO] Diarizaçêo NeMo timeout (>10min)")
         return None
     except FileNotFoundError:
-        print(f"[ERRO] Python NeMo não encontrado: {_NEMO_PYTHON}")
+        print(f"[ERRO] Python NeMo nêo encontrado: {_NEMO_PYTHON}")
         return None
 
     # Ler resultado
     if not result_path.exists():
-        print("[ERRO] Resultado NeMo não encontrado")
+        print("[ERRO] Resultado NeMo nêo encontrado")
         return None
 
     try:
         data = json.loads(result_path.read_text())
         if "error" in data:
-            print(f"[ERRO] Diarização NeMo: {data['error']}")
+            print(f"[ERRO] Diarizaçêo NeMo: {data['error']}")
             return None
         segs = data["segments"]
         speakers = data.get("speakers", [])
-        print(f"[OK] Diarização NeMo: {len(segs)} segmentos, {len(speakers)} falantes")
+        print(f"[OK] Diarizaçêo NeMo: {len(segs)} segmentos, {len(speakers)} falantes")
         return segs
     except Exception as e:
         print(f"[ERRO] Lendo resultado NeMo: {e}")
@@ -1689,9 +1689,9 @@ def ajustar_texto_para_duracao(texto, duracao_alvo, cps_original, idioma="pt", n
     3. Se no_truncate:
        - ratio >= 0.5 (texto até 2× o limite): respeita, sync ajusta velocidade
        - ratio <  0.5 (texto mais que 2× o limite): trunca na última sentença completa
-    4. Se não no_truncate:
+    4. Se nêo no_truncate:
        - ratio >= 0.7: trunca por palavras mantendo sentido
-       - ratio <  0.7: deixa para o sync (compressão extrema de qualquer forma)
+       - ratio <  0.7: deixa para o sync (compressêo extrema de qualquer forma)
     """
     texto = _remover_fillers(texto, idioma)
 
@@ -1765,7 +1765,7 @@ def _clean_ollama_response(response, original_text):
         if pattern.lower() in text.lower():
             return None
 
-    # Se a resposta é igual ao texto original (não traduziu), retorna None
+    # Se a resposta é igual ao texto original (nêo traduziu), retorna None
     if text.strip() == original_text.strip():
         return None
 
@@ -1773,10 +1773,10 @@ def _clean_ollama_response(response, original_text):
     garbage_patterns = [
         "REGRAS CRÍTICAS:",
         "CRITICAL RULES:",
-        "Tradução concisa (máximo",
+        "Traduçêo concisa (máximo",
         "Concise translation (max",
         "Translation:",
-        "Tradução:",
+        "Traduçêo:",
         "(Note:",
         "Note:",
         "Nota:",
@@ -1790,7 +1790,7 @@ def _clean_ollama_response(response, original_text):
         "- Remove filler",
         "- Manter termos",
         "- Keep technical",
-        "- NÃO adicione",
+        "- NêO adicione",
         "- Do NOT add",
         "- Se tiver dúvida",
         "- If in doubt",
@@ -1798,7 +1798,7 @@ def _clean_ollama_response(response, original_text):
         "Text (",
     ]
 
-    # Se contém qualquer padrão de lixo, tentar extrair só a tradução
+    # Se contém qualquer padrêo de lixo, tentar extrair só a traduçêo
     has_garbage = any(p in text for p in garbage_patterns)
 
     if has_garbage:
@@ -1812,16 +1812,16 @@ def _clean_ollama_response(response, original_text):
             # Ignorar linhas que começam com "-" (instruções)
             if line.startswith('-'):
                 continue
-            # Ignorar linhas que são claramente instruções
+            # Ignorar linhas que sêo claramente instruções
             if any(p in line for p in garbage_patterns):
                 continue
-            # Esta linha pode ser a tradução
+            # Esta linha pode ser a traduçêo
             # Remover prefixos comuns
             if ':' in line:
                 parts = line.split(':', 1)
                 if len(parts) > 1 and len(parts[1].strip()) > 5:
                     candidate = parts[1].strip()
-                    # Verificar se não é instrução
+                    # Verificar se nêo é instruçêo
                     if not any(p in candidate for p in garbage_patterns):
                         text = candidate
                         break
@@ -1840,12 +1840,12 @@ def _clean_ollama_response(response, original_text):
         if sep in text:
             text = text.split(sep)[0].strip()
 
-    # Se ainda tem múltiplas linhas, pegar a última que parece tradução válida
+    # Se ainda tem múltiplas linhas, pegar a última que parece traduçêo válida
     if '\n' in text:
         lines = [l.strip() for l in text.split('\n') if l.strip()]
         valid_lines = []
         for line in lines:
-            # Ignorar linhas de instrução
+            # Ignorar linhas de instruçêo
             if line.startswith('-'):
                 continue
             if any(p in line for p in garbage_patterns):
@@ -1854,10 +1854,10 @@ def _clean_ollama_response(response, original_text):
                 valid_lines.append(line)
 
         if valid_lines:
-            # Pegar a última linha válida (geralmente é a tradução)
+            # Pegar a última linha válida (geralmente é a traduçêo)
             text = valid_lines[-1]
 
-    # Validação final: se ainda contém lixo óbvio, retorna None
+    # Validaçêo final: se ainda contém lixo óbvio, retorna None
     final_garbage = ["REGRAS", "CRITICAL", "chars)", "caracteres)", "DUBBING"]
     if any(g in text for g in final_garbage):
         return None
@@ -2052,7 +2052,7 @@ def translate_segments_ollama(segs, src, tgt, workdir, model="llama3", cps_origi
                     from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
                     m2m_tok = AutoTokenizer.from_pretrained("facebook/m2m100_418M")
                     m2m_model = AutoModelForSeq2SeqLM.from_pretrained("facebook/m2m100_418M", use_safetensors=True)
-                    # M2M100 roda em CPU para não competir com Ollama na unified memory
+                    # M2M100 roda em CPU para nêo competir com Ollama na unified memory
                     m2m_model = m2m_model.to("cpu")
                 except Exception as e:
                     print(f"  [ERRO] Falha ao carregar M2M100: {e}")
@@ -2102,7 +2102,7 @@ def translate_segments_ollama(segs, src, tgt, workdir, model="llama3", cps_origi
     if fallback_count > 0:
         print(f"[INFO] Fallbacks M2M100 usados: {fallback_count}/{len(segs)} segmentos")
 
-    # Descarregar modelo da memória após tradução para liberar unified memory
+    # Descarregar modelo da memória após traduçêo para liberar unified memory
     try:
         import requests as _req
         _req.post("http://localhost:11434/api/generate",
@@ -2556,18 +2556,18 @@ def tts_chatterbox(segments, workdir, tgt_lang, voice_sample=None):
         Path(segs_json_path).unlink(missing_ok=True)
 
 # ============================================================================
-# ANÁLISE AUTOMÁTICA — recomendação de parâmetros após etapa 4
+# ANÁLISE AUTOMÁTICA — recomendaçêo de parâmetros após etapa 4
 # ============================================================================
 
 def _melhor_modelo_ollama() -> tuple[str, str]:
     """Retorna (model_id, justificativa) do melhor modelo Ollama instalado.
 
-    Prioriza modelos com bom custo-benefício para tradução PT-BR:
+    Prioriza modelos com bom custo-benefício para traduçêo PT-BR:
     - qwen2.5 e qwen3 têm treinamento multilíngue forte
     - Cap em ~25GB: modelos maiores carregam devagar e travam o servidor
     - Fallback: maior modelo disponível até 25GB, depois qualquer um
     """
-    # Ordem de preferência por família (melhor para tradução PT-BR)
+    # Ordem de preferência por família (melhor para traduçêo PT-BR)
     FAMILIA_PREF = ["qwen2.5", "qwen3", "qwen", "gemma4", "command-r", "llama3"]
     # Faixa de tamanho ideal: entre 8GB e 25GB
     SIZE_MIN = 8e9
@@ -2609,13 +2609,13 @@ def _recomendar_params(cps: float, total_dur: float, expansion: float, input_url
     else:
         platform = "unknown"
 
-    # Recomendação de ASR: parakeet só para inglês (detectado por plataforma)
+    # Recomendaçêo de ASR: parakeet só para inglês (detectado por plataforma)
     asr = "parakeet" if platform in ("long", "short") else "whisper"
 
-    # Recomendação de TTS: edge (CPU, online, boa qualidade para PT-BR)
+    # Recomendaçêo de TTS: edge (CPU, online, boa qualidade para PT-BR)
     tts = "edge"
 
-    # Recomendação de tradução: ollama para vídeos longos (qualidade contextual),
+    # Recomendaçêo de traduçêo: ollama para vídeos longos (qualidade contextual),
     # m2m100 para curtos (velocidade). Verificar se Ollama está disponível.
     use_ollama = total_dur > 600
     ollama_model_id = ""
@@ -2628,7 +2628,7 @@ def _recomendar_params(cps: float, total_dur: float, expansion: float, input_url
 
     translation = "ollama" if use_ollama else "m2m100"
     trad_just = (
-        f"Ollama ({ollama_model_desc}) para vídeo longo — melhor contexto e naturalidade na tradução."
+        f"Ollama ({ollama_model_desc}) para vídeo longo — melhor contexto e naturalidade na traduçêo."
         if use_ollama
         else "M2M100 local — rápido, sem GPU de IA necessária."
     )
@@ -2642,7 +2642,7 @@ def _recomendar_params(cps: float, total_dur: float, expansion: float, input_url
     if cps >= 15 or expansion > 1.3:
         return {**base, "content_type": "curso", "sync_mode": "fit", "maxstretch": 1.4,
                 "no_truncate": True,
-                "justificativa": f"Fala densa ({cps:.1f} CPS), expansão {expansion:.0%}. {trad_just}"}
+                "justificativa": f"Fala densa ({cps:.1f} CPS), expansêo {expansion:.0%}. {trad_just}"}
     if platform == "short" or total_dur < 180:
         return {**base, "content_type": "shorts", "sync_mode": "smart", "maxstretch": 1.1,
                 "no_truncate": False, "translation_engine": "m2m100",
@@ -2653,7 +2653,7 @@ def _recomendar_params(cps: float, total_dur: float, expansion: float, input_url
                 "justificativa": f"Vídeo longo ({total_dur/60:.0f} min), ritmo tranquilo. {trad_just}"}
     return {**base, "content_type": "tutorial", "sync_mode": "extend", "maxstretch": 1.5,
             "no_truncate": True,
-            "justificativa": f"Duração moderada ({total_dur/60:.1f} min), {cps:.1f} CPS. {trad_just}"}
+            "justificativa": f"Duraçêo moderada ({total_dur/60:.1f} min), {cps:.1f} CPS. {trad_just}"}
 
 
 def _justificar_via_ollama(rec: dict, cps: float, total_dur: float, expansion: float) -> str:
@@ -2662,9 +2662,9 @@ def _justificar_via_ollama(rec: dict, cps: float, total_dur: float, expansion: f
         import requests as _req
         prompt = (
             f"Em uma frase curta e direta em português, explique por que o tipo '{rec['content_type']}' "
-            f"foi escolhido para um vídeo com CPS={cps:.1f}, duração={total_dur/60:.1f}min, "
-            f"expansão de tradução={expansion:.0%}, sync={rec['sync_mode']}, maxstretch={rec['maxstretch']}. "
-            f"Não use markdown, só o texto simples."
+            f"foi escolhido para um vídeo com CPS={cps:.1f}, duraçêo={total_dur/60:.1f}min, "
+            f"expansêo de traduçêo={expansion:.0%}, sync={rec['sync_mode']}, maxstretch={rec['maxstretch']}. "
+            f"Nêo use markdown, só o texto simples."
         )
         resp = _req.post(
             "http://localhost:11434/api/generate",
@@ -2679,7 +2679,7 @@ def _justificar_via_ollama(rec: dict, cps: float, total_dur: float, expansion: f
 
 
 def _gerar_analysis(segs_trad: list, cps_original: float, args, workdir: "Path") -> dict:
-    """Calcula métricas pós-tradução e gera analysis.json para aprovação do usuário."""
+    """Calcula métricas pós-traduçêo e gera analysis.json para aprovaçêo do usuário."""
     total_dur = sum(s["end"] - s["start"] for s in segs_trad)
     avg_dur = total_dur / len(segs_trad) if segs_trad else 0
     chars_orig = sum(len(s.get("text_original", "") or s.get("text", "")) for s in segs_trad)
@@ -2710,9 +2710,9 @@ def _gerar_analysis(segs_trad: list, cps_original: float, args, workdir: "Path")
 def _aplicar_recomendados(args, rec: dict) -> None:
     """Aplica os params recomendados pela análise que ainda afetam o pipeline.
 
-    Nesta altura ASR e tradução já rodaram, então só valem os de downstream que
+    Nesta altura ASR e traduçêo já rodaram, entêo só valem os de downstream que
     de fato dependem da análise: sync e maxstretch (no_truncate já foi forçado
-    True na tradução do modo análise, e TTS/voz é escolha do usuário).
+    True na traduçêo do modo análise, e TTS/voz é escolha do usuário).
     """
     if not rec:
         return
@@ -3580,7 +3580,7 @@ def generate_summary_audio(segs_trad, workdir, tgt_lang, tts_engine, args):
                     "prompt": (
                         f"Faça um resumo objetivo em {tgt_lang} do seguinte conteúdo de vídeo. "
                         f"Use 3 a 5 frases curtas. Comece com 'Neste vídeo' ou similar. "
-                        f"Não use listas, só texto corrido.\n\nConteúdo:\n{texto_completo[:4000]}\n\nResumo:"
+                        f"Nêo use listas, só texto corrido.\n\nConteúdo:\n{texto_completo[:4000]}\n\nResumo:"
                     ),
                     "stream": False,
                     "options": {"num_predict": 200, "temperature": 0.3},
@@ -3897,7 +3897,7 @@ Exemplos:
     ap.add_argument("--analyze", action="store_true",
                    help="Rodar análise (etapas 1-4), calcular params recomendados e segui-los automaticamente")
     ap.add_argument("--review", action="store_true",
-                   help="Com --analyze: pausar após a análise para aprovação manual (salva analysis.json, sai com código 2)")
+                   help="Com --analyze: pausar após a análise para aprovaçêo manual (salva analysis.json, sai com código 2)")
     ap.add_argument("--pause-after-translate", action="store_true",
                    help="Alias legado de --analyze --review (mantido para compatibilidade)")
     ap.add_argument("--resume-from-stage", type=int, default=None,
@@ -3905,7 +3905,7 @@ Exemplos:
 
     args = ap.parse_args()
 
-    # Compat: --pause-after-translate = análise com revisão manual
+    # Compat: --pause-after-translate = análise com revisêo manual
     if getattr(args, "pause_after_translate", False):
         args.analyze = True
         args.review = True
@@ -3953,13 +3953,13 @@ Exemplos:
         if not trad_json_path.exists():
             trad_json_path = workdir / "trad.json"
         if not trad_json_path.exists():
-            print(f"[ERRO] Resume: asr_trad.json não encontrado em {workdir}")
+            print(f"[ERRO] Resume: asr_trad.json nêo encontrado em {workdir}")
             sys.exit(1)
         raw = json.loads(trad_json_path.read_text(encoding="utf-8"))
         # asr_trad.json pode ser {"segments": [...]} ou lista direta
         segs_trad = raw["segments"] if isinstance(raw, dict) and "segments" in raw else raw
 
-        # Verificar se a engine de tradução aprovada difere da usada na análise
+        # Verificar se a engine de traduçêo aprovada difere da usada na análise
         recorded_model = raw.get("model", "") if isinstance(raw, dict) else ""
         if args.tradutor == "ollama":
             approved_model_key = f"ollama/{args.modelo}"
@@ -3989,11 +3989,11 @@ Exemplos:
                 else:
                     segs_trad, _, _ = translate_segments_m2m100(segs_asr, src_lang_asr, args.tgt, workdir, getattr(args, "large_model", False), None, no_truncate)
             else:
-                print(f"[AVISO] Resume: asr.json não encontrado, usando tradução existente ({recorded_model})", flush=True)
+                print(f"[AVISO] Resume: asr.json nêo encontrado, usando traduçêo existente ({recorded_model})", flush=True)
 
         audio_src_candidates = list(workdir.glob("audio_src.wav")) + list(workdir.glob("audio*.wav"))
         if not audio_src_candidates:
-            print(f"[ERRO] Resume: audio_src.wav não encontrado em {workdir}")
+            print(f"[ERRO] Resume: audio_src.wav nêo encontrado em {workdir}")
             sys.exit(1)
         audio_src = audio_src_candidates[0]
         video_in = audio_src
@@ -4138,7 +4138,7 @@ Exemplos:
         # ========== ETAPA 4: Traducao ==========
         t_etapa = time.time()
         no_truncate = getattr(args, 'no_truncate', False)
-        # Na fase de análise nunca truncar — texto completo, o sync ajusta a duração depois
+        # Na fase de análise nunca truncar — texto completo, o sync ajusta a duraçêo depois
         if getattr(args, "analyze", False):
             no_truncate = True
         if no_truncate:
@@ -4163,9 +4163,9 @@ Exemplos:
     if getattr(args, "analyze", False):
         rec = _gerar_analysis(segs_trad, cps_original, args, workdir)
         if getattr(args, "review", False):
-            print("[ANÁLISE] Aguardando aprovação do usuário. Pipeline pausado.", flush=True)
+            print("[ANÁLISE] Aguardando aprovaçêo do usuário. Pipeline pausado.", flush=True)
             sys.exit(2)  # código 2 = waiting_approval
-        # Sem revisão: aplica os params recomendados e segue direto pra execução
+        # Sem revisêo: aplica os params recomendados e segue direto pra execuçêo
         _aplicar_recomendados(args, rec)
 
     # ========== ETAPA 5: Split ==========

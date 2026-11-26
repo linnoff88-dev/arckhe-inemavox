@@ -71,7 +71,7 @@ export default function JobsPage() {
   const handleDelete = async (e: React.MouseEvent, jobId: string) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!confirm(`Excluir job ${jobId} e todos os arquivos? Esta ação não pode ser desfeita.`)) return;
+    if (!confirm(`Excluir job ${jobId} e todos os arquivos? Esta açêo nêo pode ser desfeita.`)) return;
     setDeleting(jobId);
     try {
       await deleteJob(jobId);
@@ -341,7 +341,7 @@ export default function JobsPage() {
 
                     {job.status === "completed" && (
                       <div className="text-sm text-gray-500 flex items-center gap-2 flex-wrap">
-                        <span>Duração: {String(job.duration_s || 0)}s</span>
+                        <span>Duraçêo: {String(job.duration_s || 0)}s</span>
                       </div>
                     )}
 

@@ -171,7 +171,7 @@ CONTENT_TYPES = [
         "id": "analise",
         "name": "Análise Automática",
         "description": "Transcreve, traduz, escolhe os melhores parâmetros e já dubla direto (sem espera).",
-        "detail": "Roda transcrição e tradução, analisa CPS, duração e expansão do texto, escolhe o tipo de vídeo ideal e aplica os parâmetros automaticamente, seguindo direto para a dublagem. Para inspecionar e aprovar antes, use o modo revisão (review).",
+        "detail": "Roda transcriçêo e traduçêo, analisa CPS, duraçêo e expansêo do texto, escolhe o tipo de vídeo ideal e aplica os parâmetros automaticamente, seguindo direto para a dublagem. Para inspecionar e aprovar antes, use o modo revisêo (review).",
         "presets": {},
     },
     {

@@ -63,7 +63,7 @@ def convert_ref_to_wav(ref_path: str, outdir: Path) -> str:
 
     - 24000 Hz = S3GEN_SR do Chatterbox MTL (evita mel/token mismatch)
     - Trim para 10s = DEC_COND_LEN do modelo (evita padding inconsistente)
-    - soundfile não lê MP4/MP3 diretamente, por isso sempre convertemos
+    - soundfile nêo lê MP4/MP3 diretamente, por isso sempre convertemos
     """
     wav_path = outdir / "ref_converted.wav"
     try:
@@ -86,7 +86,7 @@ def convert_ref_to_wav(ref_path: str, outdir: Path) -> str:
 def split_sentences(text: str, max_chars: int = 120) -> list[str]:
     """Divide texto longo em sentenças curtas para evitar loop no modelo."""
     import re
-    # Dividir em sentenças por pontuação
+    # Dividir em sentenças por pontuaçêo
     parts = re.split(r'(?<=[.!?,;:])\s+', text.strip())
     sentences: list[str] = []
     current = ""
@@ -194,7 +194,7 @@ def run_chatterbox(text: str, lang: str, ref: str | None, outdir: Path,
             "Defina CHATTERBOX_PYTHON=/path/python3 do conda env chatterbox"
         )
 
-    # Converter referência para WAV se necessário (soundfile não lê MP4/MP3)
+    # Converter referência para WAV se necessário (soundfile nêo lê MP4/MP3)
     ref_wav = None
     if ref and Path(ref).exists():
         ref_wav = convert_ref_to_wav(ref, outdir)

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Atualização Ollama 0.15.2 → 0.17.4 com rollback automático
+# Atualizaçêo Ollama 0.15.2 → 0.17.4 com rollback automático
 # Uso: sudo bash scripts/update-ollama.sh [rollback]
 
 set -e
@@ -11,7 +11,7 @@ BACKUP="/usr/local/bin/ollama.backup-0.15.2"
 if [[ "$1" == "rollback" ]]; then
     echo "=== ROLLBACK: restaurando 0.15.2 ==="
     if [[ ! -f "$BACKUP" ]]; then
-        echo "ERRO: backup não encontrado em $BACKUP"
+        echo "ERRO: backup nêo encontrado em $BACKUP"
         exit 1
     fi
     cp "$BACKUP" "$BINARY"
@@ -25,7 +25,7 @@ echo "=== Atualizando Ollama ==="
 
 # Verificar se o novo binário está disponível
 if [[ ! -f "$NEW_BINARY" ]]; then
-    echo "ERRO: novo binário não encontrado em $NEW_BINARY"
+    echo "ERRO: novo binário nêo encontrado em $NEW_BINARY"
     echo "Execute o download primeiro."
     exit 1
 fi
@@ -42,9 +42,9 @@ echo "3. Reiniciando serviço Ollama..."
 systemctl restart ollama
 sleep 3
 
-echo "4. Verificando versão..."
+echo "4. Verificando versêo..."
 ollama --version
 
 echo ""
-echo "=== Atualização concluída! ==="
+echo "=== Atualizaçêo concluída! ==="
 echo "Para reverter: sudo bash scripts/update-ollama.sh rollback"

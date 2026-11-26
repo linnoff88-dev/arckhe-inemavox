@@ -12,7 +12,7 @@ API (só 127.0.0.1):
   GET  /saude                                   -> {"ok": true, "modelo": ...}
   POST /transcrever {"audio": caminho, "lang": "pt", "words": true}
        -> {"language": ..., "segments": [...]}   (mesmo formato do whisper_gpu_worker.py)
-Uma transcrição por vez (trava): pedidos simultâneos esperam na fila.
+Uma transcriçêo por vez (trava): pedidos simultâneos esperam na fila.
 """
 import argparse
 import json

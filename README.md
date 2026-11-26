@@ -1,4 +1,4 @@
-﻿# inemaVOX
+# inemaVOX
 
 <p align="center">
   <img src="docs/inemavox.jpg" alt="inemaVOX - Suite de Voz com IA" width="800"/>
@@ -538,4 +538,4 @@ kill <PID>
 
 ---
 
-Projeto adaptado da comunidade INEMA TDS - Marca Arckhe
+Projeto  - ARCKHÉe

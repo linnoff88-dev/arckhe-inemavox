@@ -35,7 +35,7 @@ MTL_LANGS = {
 
 
 def get_device() -> str:
-    """Detecta device com verificação de VRAM disponível.
+    """Detecta device com verificaçêo de VRAM disponível.
     MTL requer ~3-4GB VRAM. Se insuficiente, fallback para CPU.
     """
     if not torch.cuda.is_available():
